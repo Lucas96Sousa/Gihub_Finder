@@ -5,34 +5,31 @@ const octokit = new Octokit({
     auth: process.env.GH_LOG
 })
 
-class OctoController {
-
-async getUsers(req,res) {
-    const {data} = await octokit.request('GET /users/?since={number}', {
-        number: req.body
+ getUsers = async() => {
+    const listUsers = await octokit.request('GET /users/?since={number}', {
+        number: 1
     })
 
-    return res.json({data})
+    return console.log(listUsers.data)
 }
 
-
-
-    async getUsersDetails(req,res) {
-        const {data} = await octokit.request('GET /users/{username}', {
-            username: req.body
+    getUsersDetails = async () => {
+        const getUsersDetail = await octokit.request('GET /users/{username}', {
+            username: 'lucas96sousa'
           })
     
-          return res.json({data})
+          return console.log(getUsersDetails)
         
     }
 
-    async getRepos(req,res) {
-        const {data} = await octokit.request('GET /users/{username}/repos', {
-            username: req.body
+    getRepos = async () => {
+        const repo = await octokit.request('GET /users/{username}/repos', {
+            username: 'lucas96sousa'
         })
 
-        return res.json({data})
+        return console.log(repo)
     }
-}
+getUsersDetails()
+getUsersDetails()
+getRepos()
 
-module.exports= OctoController
